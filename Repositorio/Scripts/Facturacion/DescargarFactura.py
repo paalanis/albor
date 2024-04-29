@@ -36,6 +36,10 @@ class DescargarFactura():
       for j in range(0,filasHojaGeneral):        
 
          #datos generales factura
+
+         if xl.readData(dataTable,hojaGeneral,"i_factura",j) == "NO":
+            continue
+
          error=xl.readData(dataTable,hojaGeneral,"o_asiento",j)
          fecha = xl.readData(dataTable,hojaGeneral,"i_fecha",j)
          numeroFactura = xl.readData(dataTable,hojaGeneral,"i_numeroFactura",j)

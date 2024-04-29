@@ -42,16 +42,25 @@ class EmitirFactura():
 
       for j in range(0,filasHojaGeneral):
 
-         fx.scroll(0,250,tiempo)         
-         fx.click("Nueva factura",By.XPATH,objFa.nuevoBtn,tiempo)
-
          #datos generales factura
+
+         if xl.readData(dataTable,hojaGeneral,"i_factura",j) == "NO":
+            continue
+
          tipoFactura = xl.readData(dataTable,hojaGeneral,"i_tipoFactura",j)
          fecha = xl.readData(dataTable,hojaGeneral,"i_fecha",j)
          numeroFactura = xl.readData(dataTable,hojaGeneral,"i_numeroFactura",j)
          cliente = xl.readData(dataTable,hojaGeneral,"i_cliente",j)
          jurisdiccion = xl.readData(dataTable,hojaGeneral,"i_jurisdiccion",j)
          tipoVenta = xl.readData(dataTable,hojaGeneral,"i_tipoVenta",j)
+
+         if cliente == "GRANAR S.A.C y F. (AB)":
+            clienteFc = "GRANAR S.A.C y F."
+         else:
+            clienteFc = cliente
+
+         fx.scroll(0,250,tiempo)         
+         fx.click("Nueva factura",By.XPATH,objFa.nuevoBtn,tiempo)
          
       #Paso uno --------------------------------------------------------------------------------------------------------------------------------
          fx.existeObjeto(By.XPATH,objFa.pasoUno,tiempo)
@@ -61,7 +70,7 @@ class EmitirFactura():
          fx.input("Fecha",By.XPATH,objFa.fechaInput,fecha,tiempo)
          fx.click("Click factura",By.XPATH,objFa.numeroFactura,tiempo)
          fx.input("Numero factura",By.XPATH,objFa.numeroFactura,numeroFactura,tiempo)
-         fx.buscar("Cliente",By.XPATH,objFa.clienteInput,cliente,tiempo)
+         fx.buscar("Cliente",By.XPATH,objFa.clienteInput,clienteFc,tiempo)
          fx.selectTexto("Jurisdiccion",By.XPATH,objFa.jurisdiccionSelect,jurisdiccion,tiempo)
          fx.selectTexto("Tipo venta",By.XPATH,objFa.tipoVentaSelect,tipoVenta,tiempo)               
 

@@ -22,4 +22,4 @@ def test_Escenario1(driver,tiempo):
     SeleccionarEmpresa(driver).seleccionarEmpresa(dataTable,T)
     EmitirFactura(driver).emitirFactura(dataTable,T)
     DescargarFactura(driver).descargarFactura(dataTable,T)
-    #LogOut(driver).logOut(T)
+    LogOut(driver).logOut(T)
