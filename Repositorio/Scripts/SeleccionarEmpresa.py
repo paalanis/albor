@@ -9,7 +9,7 @@ class SeleccionarEmpresa():
       
       self.driver = driver
 
-   def SeleccionarEmpresa(self,dataTable,tiempo):
+   def seleccionarEmpresa(self,dataTable,tiempo):
       
       driver = self.driver
       

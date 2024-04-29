@@ -2,6 +2,8 @@ import datetime
 from Repositorio.Scripts.LogIn import *
 from Repositorio.Scripts.LogOut import *
 from Repositorio.Scripts.SeleccionarEmpresa import *
+from Repositorio.Scripts.Facturacion.EmitirFactura import *
+from Repositorio.Scripts.Facturacion.DescargarFactura import *
 from Repositorio.Scripts.ExcelPandas import *
 
 
@@ -17,5 +19,7 @@ def test_Escenario1(driver,tiempo):
     user_a = xl.readData(dataTable,hoja,"usuario",0)
         
     LogIn(driver).logIn(user_a,T)
-    SeleccionarEmpresa(driver).SeleccionarEmpresa(dataTable,T)
-    LogOut(driver).logOut(T)
+    SeleccionarEmpresa(driver).seleccionarEmpresa(dataTable,T)
+    EmitirFactura(driver).emitirFactura(dataTable,T)
+    DescargarFactura(driver).descargarFactura(dataTable,T)
+    #LogOut(driver).logOut(T)

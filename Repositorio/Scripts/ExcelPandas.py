@@ -18,7 +18,7 @@ class Funexcel_pd():
         val = data[header].values[row]    
         return val
     
-    def writeData(self,path,sheet,header,dato):
+    def writeData(self,path,sheet,header,dato,row):
         '''Función que inserta el dato indicado en una hoja de excel específica, según el nombre de la título de la columna y el número de fila indicados.
         Argumentos:\n
         path: ubicación del arcrivo de excel.\n
@@ -27,7 +27,7 @@ class Funexcel_pd():
         dato: valor a ingresar en la celda.
         '''
         df = pd.read_excel(path,sheet,dtype=object)
-        df.at[0,header]=dato
+        df.at[row,header]=dato
         with pd.ExcelWriter(path,mode="a",if_sheet_exists="overlay") as writer:            
             df.to_excel(writer,sheet_name=sheet,index=False) 
         
@@ -44,6 +44,7 @@ class Funexcel_pd():
         df = pd.DataFrame(data)
         df
         resultado = df[df[headerBuscado]==valorBuscado][headerResultado]
+        #resultado=resultado.index
         return resultado
     
     def numRow(self,path,sheet):

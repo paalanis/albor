@@ -20,6 +20,7 @@ class Funciones():
     def __init__(self,driver):
 
         self.driver = driver
+        self.act = ActionChains (driver)
 
     def _buscaObjeto(self,tipo,objeto):
         '''Busca un objeto html dentro del DOM, espera a que exista el tiempo de WDW, realiza scroll hasta el. Retorna un objeto.
@@ -27,11 +28,11 @@ class Funciones():
         tipo: By.XPATH, ByID, etc.\n
         objeto: objeto HTML.
         '''
-        act = ActionChains (self.driver)
+        
         try:
                #print("Se busca objeto: " + objeto)
-               obj = WebDriverWait(self.driver,WDW).until(EC.element_to_be_clickable((tipo,objeto)))
-               act.scroll_to_element(obj).perform()
+               obj = WebDriverWait(self.driver,WDW).until(EC.visibility_of_element_located((tipo,objeto)))
+               self.act.scroll_to_element(obj).perform()
                obj = self.driver.find_element(tipo,objeto)
                return obj
         except StaleElementReferenceException as e:
@@ -94,7 +95,7 @@ class Funciones():
         '''
         try:
             obj = self._buscaObjeto(tipo,objeto)
-            obj.clear()
+            #obj.clear()
             obj.send_keys(texto)
             print("Se completa el campo: {}".format(alias))
             t = time.sleep(tiempo)
@@ -317,7 +318,23 @@ class Funciones():
            print(e.msg)
            print("No se pudo hacer TAB")
 
-    def scroll(self,alias,tipo,objeto,dir,tiempo):
+    def scroll(self,x,y,tiempo):
+        '''Realiza un SCROLL en una direccion a un objeto determinado.
+        Argumentos:\n
+        tipo: By.XPATH, ByID, etc.\n
+        objeto: objeto HTML.\n
+        dir: direccion "up","down","left","right"\n
+        tiempo: tiempo de espera entre pasos.
+        '''
+        try:
+            self.act.scroll_by_amount(x,y).perform()
+            t = time.sleep(tiempo)
+            return t
+        except TimeoutException as e:
+           print(e.msg)
+           print("No se pudo hacer SCROLL")
+
+    def scrollElement(self,tipo,objeto,tiempo):
         '''Realiza un SCROLL en una direccion a un objeto determinado.
         Argumentos:\n
         tipo: By.XPATH, ByID, etc.\n
@@ -327,15 +344,7 @@ class Funciones():
         '''
         try:
             obj = self._buscaObjeto(tipo,objeto)
-            if(dir == "right"):
-                obj = self.driver.execute_script("arguments[0].scrollBy(200,0);",obj)
-            elif(dir == "left"):
-                obj = self.driver.execute_script("arguments[0].scrollBy(-200,0);",obj)
-            elif(dir == "up"):
-                obj = self.driver.execute_script("arguments[0].scrollTo(0,0);",obj)
-            else:
-                obj = self.driver.execute_script("arguments[0].scrollTo(0,200);",obj)
-            print("Damos click en: {}".format(alias))
+            self.act.scroll_to_element(obj).perform()
             t = time.sleep(tiempo)
             return t
         except TimeoutException as e:
@@ -366,13 +375,15 @@ class Funciones():
         '''
         if(mensaje!=mensajeEsperado):
             print("{} Se esperaba: {} pero se encontró {}".format(errorMensaje,mensajeEsperado,mensaje))
+            time.sleep(tiempo)
+            return False        
         else:
             print(mensajeOk)
-        t = time.sleep(tiempo)
-        return t
-
+            time.sleep(tiempo)
+            return True
+        
     def tamanoOjeto(self,tipo,objeto,tiempo):
-        '''Comprueba si un objeto html existe en el DOM, devuelve True or False.
+        '''Comprueba si un objeto html existe en el DOM, devuelve True or False.\n
         Argumentos:\n
         tipo: By.XPATH, ByID, etc.\n
         objeto: objeto HTML.\n
@@ -385,3 +396,53 @@ class Funciones():
             return tamano
         except TimeoutException as e:
             print("Error")
+
+    def getValue(self,tipo,objeto,tiempo):
+        '''Obtiene el contenido del atributo Value.\n
+        Argumentos:\n
+        tipo: By.XPATH, ByID, etc.\n
+        objeto: objeto HTML.\n
+        tiempo: tiempo de espera entre pasos.
+        '''
+        try:
+            time.sleep(tiempo)
+            obj = self._buscaObjeto(tipo,objeto)
+            valor = self.driver.execute_script("return arguments[0].value",obj)            
+            return valor
+        except TimeoutException as e:
+            print(e.msg)
+            print("No se pudo obtener value")
+
+    def estadoDisabled(self,tipo,objeto,tiempo):
+        '''Comprueba el estado DISABLED de un objeto permitido.\n
+        Return Bool.
+        Argumentos:\n
+        tipo: By.XPATH, ByID, etc.\n
+        objeto: objeto HTML.\n
+        tiempo: tiempo de espera entre pasos.
+        '''
+        try:
+            time.sleep(tiempo)
+            obj = self._buscaObjeto(tipo,objeto)
+            estado = self.driver.execute_script("return arguments[0].disabled",obj)            
+            return estado
+        except TimeoutException as e:
+            print(e.msg)
+            print("No se pudo obtener value")
+
+    def styleObjeto(self,tipo,objeto,tipoStyle,tiempo):
+        '''.\n
+        Return String.
+        Argumentos:\n
+        tipo: By.XPATH, ByID, etc.\n
+        objeto: objeto HTML.\n
+        tiempo: tiempo de espera entre pasos.
+        '''
+        try:
+            time.sleep(tiempo)
+            obj = self._buscaObjeto(tipo,objeto)
+            style = self.driver.execute_script("return arguments[0].style."+tipoStyle+"",obj)            
+            return style
+        except TimeoutException as e:
+            print(e.msg)
+            print("No se pudo obtener value")
