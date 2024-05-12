@@ -75,7 +75,7 @@ class EmitirFactura():
          fx.selectTexto("Tipo venta",By.XPATH,objFa.tipoVentaSelect,tipoVenta,tiempo)               
 
          clienteFiscal=fx.getValue(By.XPATH,objFa.cuitClienteFiscal,tiempo)
-         while clienteFiscal != cliente:
+         while clienteFiscal != clienteFc:
             clienteFiscal=fx.getValue(By.XPATH,objFa.cuitClienteFiscal,tiempo)
          fx.click("Siguiente",By.XPATH,objFa.siguienteBtn,tiempo)
       
@@ -163,11 +163,12 @@ class EmitirFactura():
             fx.click("Variable-Aceptar",By.XPATH,objFa.aceptarBtn,tiempo)
             
                      
-         #CONCEPTO MOVILIDAD
+         #CONCEPTO RECUPEROS
          listaRecuperos = xl.buscarValor(dataTable,hojaConceptoRecuperos,"t_cliente","t_cliente",cliente)
          indexRecuperos = listaRecuperos.index
-         
          for i in range(0,len(indexRecuperos)):
+            if xl.readData(dataTable,hojaConceptoRecuperos,"i_factura",indexRecuperos[i]) == "NO":
+               continue
             #print("largo: "+str(len(indexRecuperos))+"_ I: "+str(i))
             if (len(indexRecuperos) != i):
                fx.scroll(0,100,tiempo)
@@ -200,7 +201,7 @@ class EmitirFactura():
             fx.click("Recuperos-Aceptar",By.XPATH,objFa.aceptarBtn,tiempo)
 
 
-         #CONCEPTO RECUPEROS   
+         #CONCEPTO MOVILIDAD
          listaMovilidad = xl.buscarValor(dataTable,hojaConceptoMovilidad,"t_cliente","t_cliente",cliente)
          indexMovilidad = listaMovilidad.index
          
@@ -290,6 +291,7 @@ class EmitirFactura():
                botonesOculto = fx.styleObjeto(By.XPATH,objFa.divContenedorBotones,"overflow",tiempo)             
              fx.click("Cancelar",By.XPATH,objFa.cancelarBtn,tiempo)             
              continue
+         xl.writeData(dataTable,hojaGeneral,"o_montoFacturado",totalFactura,j)
 
          botonesOculto = fx.styleObjeto(By.XPATH,objFa.divContenedorBotones,"overflow",tiempo)
          while botonesOculto == "hidden":
