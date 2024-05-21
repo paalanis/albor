@@ -69,7 +69,12 @@ class EmitirFactura():
          fx.click("Click fecha",By.XPATH,objFa.fechaInput,tiempo)
          fx.input("Fecha",By.XPATH,objFa.fechaInput,fecha,tiempo)
          fx.click("Click factura",By.XPATH,objFa.numeroFactura,tiempo)
-         fx.input("Numero factura",By.XPATH,objFa.numeroFactura,numeroFactura,tiempo)
+
+         if "Webservice" in tipoFactura:
+            numeroFactura = fx.getValue(By.XPATH,objFa.numeroFacturaAuto,tiempo)
+         else:   
+            fx.input("Numero factura",By.XPATH,objFa.numeroFactura,numeroFactura,tiempo)       
+         
          fx.buscar("Cliente",By.XPATH,objFa.clienteInput,clienteFc,tiempo)
          fx.selectTexto("Jurisdiccion",By.XPATH,objFa.jurisdiccionSelect,jurisdiccion,tiempo)
          fx.selectTexto("Tipo venta",By.XPATH,objFa.tipoVentaSelect,tipoVenta,tiempo)               
@@ -321,3 +326,6 @@ class EmitirFactura():
          asiento=fx.getText(By.XPATH,objFa.numeroAsiento,tiempo)
          print(str(asiento))
          xl.writeData(dataTable,hojaGeneral,"o_asiento",asiento,j)
+
+         if "Webservice" in tipoFactura:
+            xl.writeData(dataTable,hojaGeneral,"i_numeroFactura",numeroFactura,j)

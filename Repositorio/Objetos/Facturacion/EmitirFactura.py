@@ -10,6 +10,7 @@ class ObjEmitirFactura():
     fechaInput="//input[contains(@class,'fechaclass campo-requerido form-control hasDatepicker masked-date lib-visibilidad-mostrar')]"
     fechaInputWebService="//input[@class='form-control lib-visibilidad-mostrar config-SV terra-mask readonly'][contains(@id,'Comprobante')]"
     numeroFactura="//input[@class='form-control lib-visibilidad-mostrar config-SV terra-mask'][contains(@id,'Comprobante')]"
+    numeroFacturaAuto="//input[@class='form-control lib-visibilidad-mostrar config-SV terra-mask readonly'][contains(@id,'Comprobante')]"
     clienteInput="//input[contains(@id,'ID_Tercero_Cliente_nombre')]"
     cuitClienteFiscal="//input[@id='ID_Tercero_Cliente_Fiscal_nombre']"
     jurisdiccionSelect="//select[@class='form-control lib-visibilidad-mostrar'][contains(@id,'Jurisdiccion')]"

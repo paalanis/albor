@@ -7,13 +7,13 @@ from Repositorio.Scripts.Facturacion.DescargarFactura import *
 from Repositorio.Scripts.ExcelPandas import *
 
 
-def test_EscenarioFcSacsa(driver,tiempo):
+def test_EscenarioFcFoa(driver,tiempo):
    
     T = float(tiempo)
     
     #Llamamos a la plantilla de excel con los datos de prueba
     xl = Funexcel_pd(driver)
-    dataTable = "DataTables//FACTURACION//EmitirFacturaSacsa.xlsx"
+    dataTable = "DataTables//FACTURACION//EmitirFacturaFoa.xlsx"
     hoja = "Sheet2"
    
     user_a = xl.readData(dataTable,hoja,"usuario",0)
