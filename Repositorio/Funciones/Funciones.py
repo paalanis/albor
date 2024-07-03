@@ -445,4 +445,4 @@ class Funciones():
             return style
         except TimeoutException as e:
             print(e.msg)
-            print("No se pudo obtener value")
+            print("No se pudo obtener style")

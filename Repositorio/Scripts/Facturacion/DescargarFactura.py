@@ -57,20 +57,20 @@ class DescargarFactura():
          fx.scroll(0,200,tiempo)
          fx.click("Click reporte detallado",By.XPATH,objFa.reporteDetalladoBtn,5)
 
-         reporteDetallado = fx.existeObjeto(By.XPATH,objFa.loading,tiempo)   
-         while reporteDetallado == True:
-            print("Loading")
-            reporteDetallado = fx.existeObjeto(By.XPATH,objFa.loading,tiempo)
-
          driver.switch_to.frame(fx._buscaObjeto(By.ID,objFa.modalFactura))
 
+         reporteDetallado = fx.styleObjeto(By.XPATH,objFa.loading,"visibility",tiempo)
+         while reporteDetallado == "visible":
+            print("Loading")
+            reporteDetallado = fx.styleObjeto(By.XPATH,objFa.loading,"visibility",tiempo)
+        
          #fx.input("hola",By.XPATH,objFa.hojaInput,"hola",tiempo)  
          
-         reporteDetallado = fx.existeObjeto(By.XPATH,objFa.hojaInput,tiempo)   
-         while reporteDetallado == False:
-            print("Esperando reporte")
-            reporteDetallado = fx.existeObjeto(By.XPATH,objFa.hojaInput,tiempo)
-            
+         #reporteDetallado = fx.existeObjeto(By.XPATH,objFa.hojaInput,tiempo)   
+         #while reporteDetallado == False:
+         #   print("Esperando reporte")
+         #   reporteDetallado = fx.existeObjeto(By.XPATH,objFa.hojaInput,tiempo)
+
          fx.click("Click guardar",By.XPATH,objFa.guardarBtn,tiempo)
          fx.click("Click PDF",By.XPATH,objFa.opcionPdf,tiempo)
 

@@ -48,6 +48,8 @@ class ObjEmitirFactura():
     totalExento="//input[contains(@id,'Total_EX')]"
     totalFactura="(//input[@id='Importe_Total'])[1]"
 
+    errorCae="(//div[contains(.,'No se puede obtener CAE,')])[8]"
+    aceptarErrorBtn="//button[contains(@id,'btAceptarDialogoConfirmacion')]"
     numeroAsiento="//span[contains(@id,'ref-comprobante-automatico')]"
 
     #Dercargar facturas
@@ -58,7 +60,8 @@ class ObjEmitirFactura():
     reporteDetalladoBtn="//a[@href='javascript:abrirReporte_VE()'][contains(.,'Reporte Detallado')]"
     tituloReporteDetallado="//span[contains(@class,'ui-dialog-title')]"
 
-    loading="(//span[contains(.,'Loading...')])[2]"
+    #loading="(//span[contains(.,'Loading...')])[2]"
+    loading="//div[@id='visorReporte_AsyncWait_Wait']"
     hojaInput="//input[contains(@id,'visorReporte_ctl05_ctl03_ctl00')]"
     #modalFactura="//iframe[@id='iframeReporte']"
     modalFactura="iframeReporte"

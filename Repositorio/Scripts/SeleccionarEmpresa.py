@@ -27,6 +27,7 @@ class SeleccionarEmpresa():
       objHm = ObjHome
 
       fx.click("Empresa",By.XPATH,"//label[contains(.,'"+empresa+"')]",tiempo)
+      fx.scroll(0,100,tiempo)
       fx.click("Seleccionar",By.XPATH,objSe.seleccionarBtn,tiempo)      
       fx.assertTrue(fx.getTituloWeb(tiempo),objHm.titulo,"Seleccionar empresa'")
       fx.assertTrue(fx.getText(By.XPATH,objHm.nombreUserEmpresa,tiempo),user_a+" "+empresa,"La empresa no es la correcta'")

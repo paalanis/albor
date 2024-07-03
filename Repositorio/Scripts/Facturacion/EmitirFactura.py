@@ -59,7 +59,7 @@ class EmitirFactura():
          else:
             clienteFc = cliente
 
-         fx.scroll(0,250,tiempo)         
+         fx.scroll(0,300,tiempo)         
          fx.click("Nueva factura",By.XPATH,objFa.nuevoBtn,tiempo)
          
       #Paso uno --------------------------------------------------------------------------------------------------------------------------------
@@ -67,12 +67,13 @@ class EmitirFactura():
          fx.selectTexto("Tipo comprobante",By.XPATH,objFa.tipoComprobanteSelect,tipoFactura,tiempo)
          fx.existeObjeto(By.XPATH,objFa.fechaInput,tiempo)
          fx.click("Click fecha",By.XPATH,objFa.fechaInput,tiempo)
-         fx.input("Fecha",By.XPATH,objFa.fechaInput,fecha,tiempo)
-         fx.click("Click factura",By.XPATH,objFa.numeroFactura,tiempo)
+         fx.input("Fecha",By.XPATH,objFa.fechaInput,fecha,tiempo)         
 
          if "Webservice" in tipoFactura:
             numeroFactura = fx.getValue(By.XPATH,objFa.numeroFacturaAuto,tiempo)
-         else:   
+            print(numeroFactura)
+         else:
+            fx.click("Click factura",By.XPATH,objFa.numeroFactura,tiempo)
             fx.input("Numero factura",By.XPATH,objFa.numeroFactura,numeroFactura,tiempo)       
          
          fx.buscar("Cliente",By.XPATH,objFa.clienteInput,clienteFc,tiempo)
@@ -321,6 +322,9 @@ class EmitirFactura():
             print("Esperando se habilite el botón finalizar")
             botonesOculto = fx.styleObjeto(By.XPATH,objFa.divContenedorBotones,"overflow",tiempo)
          fx.click("Finalizar",By.XPATH,objFa.finalizarBtn,tiempo)
+
+         if fx.existeObjeto(By.XPATH,objFa.errorCae,tiempo):
+            fx.click("Aceptar ERROR CAE",By.XPATH,objFa.aceptarErrorBtn,tiempo)
 
          fx.existeObjeto(By.XPATH,objFa.nuevoComprobanteHome,tiempo)
          asiento=fx.getText(By.XPATH,objFa.numeroAsiento,tiempo)
