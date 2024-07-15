@@ -59,10 +59,10 @@ class DescargarFactura():
 
          driver.switch_to.frame(fx._buscaObjeto(By.ID,objFa.modalFactura))
 
-         reporteDetallado = fx.styleObjeto(By.XPATH,objFa.loading,"visibility",tiempo)
+         reporteDetallado = fx.styleObjeto(By.XPATH,objFa.loading,"visibility",3)
          while reporteDetallado == "visible":
             print("Loading")
-            reporteDetallado = fx.styleObjeto(By.XPATH,objFa.loading,"visibility",tiempo)
+            reporteDetallado = fx.styleObjeto(By.XPATH,objFa.loading,"visibility",3)
         
          #fx.input("hola",By.XPATH,objFa.hojaInput,"hola",tiempo)  
          
@@ -71,8 +71,8 @@ class DescargarFactura():
          #   print("Esperando reporte")
          #   reporteDetallado = fx.existeObjeto(By.XPATH,objFa.hojaInput,tiempo)
 
-         fx.click("Click guardar",By.XPATH,objFa.guardarBtn,tiempo)
-         fx.click("Click PDF",By.XPATH,objFa.opcionPdf,tiempo)
+         fx.click("Click guardar",By.XPATH,objFa.guardarBtn,3)
+         fx.click("Click PDF",By.XPATH,objFa.opcionPdf,3)
 
          reporteDetallado = fx.existeObjeto(By.XPATH,objFa.hojaInput,tiempo)   
          while reporteDetallado == False:

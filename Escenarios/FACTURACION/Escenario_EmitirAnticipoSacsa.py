@@ -21,5 +21,5 @@ def test_EscenarioFcSacsa(driver,tiempo):
     LogIn(driver).logIn(user_a,T)
     SeleccionarEmpresa(driver).seleccionarEmpresa(dataTable,T)
     EmitirFactura(driver).emitirFactura(dataTable,T)
-    #DescargarFactura(driver).descargarFactura(dataTable,T)
+    DescargarFactura(driver).descargarFactura(dataTable,T)
     LogOut(driver).logOut(T)
