@@ -59,7 +59,7 @@ class EmitirFactura():
          else:
             clienteFc = cliente
 
-         fx.scroll(0,300,tiempo)         
+         fx.scroll(0,400,tiempo)         
          fx.click("Nueva factura",By.XPATH,objFa.nuevoBtn,tiempo)
          
       #Paso uno --------------------------------------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ class EmitirFactura():
                fx.click("Fijo-Nuevo item",By.XPATH,objFa.nuevoItemBtn,tiempo)
 
             tipoItem = xl.readData(dataTable,hojaConceptoFijo,"i_tipoItem",indexFijos[i])
-            descripcion = xl.readData(dataTable,hojaConceptoFijo,"i_descripcion",indexFijos[i])+"-"+xl.readData(dataTable,hojaGeneral,"i_mesFacturacion",0)+" "+xl.readData(dataTable,hojaConceptoFijo,"i_finca",indexFijos[i]).upper()
+            descripcion = xl.readData(dataTable,hojaConceptoFijo,"i_descripcion",indexFijos[i])+" "+xl.readData(dataTable,hojaGeneral,"i_mesFacturacion",0)+" "+xl.readData(dataTable,hojaConceptoFijo,"i_finca",indexFijos[i]).upper()
             unidades = xl.readData(dataTable,hojaConceptoFijo,"i_unidades",indexFijos[i])
             iva = xl.buscarValor(dataTable,"Traductor_iva","t_alicuota","i_iva",xl.readData(dataTable,hojaConceptoFijo,"t_alicuota",indexFijos[i]))
             for k, v in iva.items():
@@ -249,6 +249,8 @@ class EmitirFactura():
          indexAnticipos = listaAnticipos.index
          
          for i in range(0,len(indexAnticipos)):
+            if xl.readData(dataTable,hojaConceptoAnticipos,"i_anticipo",indexAnticipos[i]) == "NO":
+               continue
             #print("largo: "+str(len(indexAnticipos))+"_ I: "+str(i))
             if (len(indexAnticipos) != i):
                fx.scroll(0,100,tiempo)
