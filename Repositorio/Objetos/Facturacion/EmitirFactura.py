@@ -32,7 +32,7 @@ class ObjEmitirFactura():
     unidadesInput="//input[contains(@class,'oculto-guardable form-control cantidad formateado-autonumeric lib-visibilidad-mostrar config-SV')]"
     ivaSelect="//select[@id='IVA']"
     netoGravadoInput="//input[@id='NG']"
-    cuentaContableInput="(//input[@type='text'][contains(@id,'codigo')])[7]"
+    cuentaContableInput="(//input[@type='text'][contains(@id,'Contable_codigo')])[1]"
     centroCostoSelect="(//select[@class='campo-requerido combo-detail form-control'][contains(@id,'2')])[1]"
     aceptarBtn="//button[@id='btAceptar_dialog']"
     estadoGrilla="//div[@id='cont-dimensiones']"
